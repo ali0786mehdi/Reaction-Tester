@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aesthetic Reaction Tester</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Reaction Tester</h1>
+            <p class="subtitle">Test your reflexes in a minimal space.</p>
+        </header>
+
+        <main>
+            <div class="dashboard">
+                <div class="stat-card">
+                    <span class="label">Round</span>
+                    <span class="value" id="round-display">0/5</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Average</span>
+                    <span class="value" id="average-time">0.000s</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Best</span>
+                    <span class="value" id="best-time">0.000s</span>
+                </div>
+            </div>
+
+            <div id="play-area" class="play-area">
+                <div id="target" class="target hidden"></div>
+                <div id="message-overlay" class="overlay">
+                    <h2 id="main-message">Click to Start</h2>
+                    <p id="sub-message">Wait for the target to appear.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
