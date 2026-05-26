@@ -1,164 +1,156 @@
+/* --- AESTHETIC THEME VARIABLES --- */
 :root {
-    --bg-color: #0b0f19;
-    --surface: rgba(255, 255, 255, 0.03);
-    --border: rgba(255, 255, 255, 0.08);
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --accent: #38bdf8;
-    --accent-glow: rgba(56, 189, 248, 0.3);
-    --danger: #f43f5e;
-    --danger-glow: rgba(244, 63, 94, 0.3);
+    --bg-main: #0f172a;       /* Deep Slate Blue */
+    --bg-card: #1e293b;       /* Lighter Slate for cards */
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent-color: #3b82f6;  /* Vibrant Blue */
+    --target-color: #10b981;  /* Emerald Green */
+    --error-color: #ef4444;   /* Soft Red */
+    --border-radius: 12px;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-    user-select: none; /* Prevents text selection while clicking fast */
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, transparent 70%);
+    min-height: 100vh;
+    user-select: none; /* Prevents text highlighting during fast clicks */
 }
 
 .app-container {
-    width: 100%;
+    width: 90%;
     max-width: 800px;
-    padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 24px;
 }
 
+/* --- HEADER --- */
 header {
     text-align: center;
 }
 
 h1 {
-    font-weight: 700;
     font-size: 2.5rem;
-    letter-spacing: -0.03em;
-    margin-bottom: 0.5rem;
-    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 .subtitle {
-    color: var(--text-muted);
-    font-weight: 300;
+    color: var(--text-secondary);
     font-size: 1.1rem;
+    margin-top: 5px;
 }
 
+/* --- DASHBOARD --- */
 .dashboard {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
 }
 
 .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.5rem;
-    text-align: center;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--bg-card);
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .label {
-    display: block;
-    color: var(--text-muted);
-    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+    margin-bottom: 5px;
 }
 
 .value {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: var(--accent);
-    text-shadow: 0 0 15px var(--accent-glow);
+    color: var(--accent-color);
 }
 
+/* --- PLAY AREA --- */
 .play-area {
+    background-color: var(--bg-card);
+    height: 400px;
     position: relative;
-    width: 100%;
-    height: 50vh;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    border-radius: var(--border-radius);
+    overflow: hidden; /* Keeps target from overflowing */
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+    cursor: crosshair; /* Gamified cursor */
 }
 
-.play-area.waiting {
-    border-color: var(--danger);
-    box-shadow: inset 0 0 40px var(--danger-glow);
-}
-
-.play-area.ready {
-    border-color: var(--accent);
-    box-shadow: inset 0 0 40px var(--accent-glow);
-}
-
-.overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: rgba(11, 15, 25, 0.7);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 10;
-    transition: opacity 0.2s ease;
-}
-
-.overlay.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.overlay h2 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-.overlay p {
-    color: var(--text-muted);
-    font-weight: 300;
-}
-
+/* --- TARGET --- */
 .target {
+    width: 60px;
+    height: 60px;
+    background-color: var(--target-color);
+    border-radius: 50%; /* Makes it a circle */
     position: absolute;
-    background: linear-gradient(135deg, #38bdf8, #818cf8);
-    box-shadow: 0 0 25px var(--accent-glow);
-    cursor: crosshair;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
     transition: transform 0.1s ease;
 }
 
 .target:active {
-    transform: scale(0.9);
+    transform: scale(0.9); /* Satisfying click effect */
 }
 
-.target.hidden {
-    display: none;
+.hidden {
+    display: none !important;
+}
+
+/* --- OVERLAY --- */
+.overlay {
+    position: absolute;
+    inset: 0; /* Stretches to fill play-area */
+    background-color: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 10;
+    cursor: pointer;
+}
+
+#main-message {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+#sub-message {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .dashboard {
+        flex-direction: column;
+    }
+    .play-area {
+        height: 300px;
+    }
+    .target {
+        width: 50px;
+        height: 50px;
+    }
 }
