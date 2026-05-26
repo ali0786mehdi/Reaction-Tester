@@ -1,5 +1,7 @@
 # ⚡ Aesthetic Reaction Tester
 
+[![Play Live](https://img.shields.io/badge/Play_Live-Game-3b82f6?style=for-the-badge&logo=github)](https://ali0786mehdi.github.io/Reaction-Tester/)
+
 A sleek, modern web application built with HTML, CSS, and Vanilla JavaScript to test and improve your reflexes and aiming speed. 
 
 Unlike basic color-swap reaction tests, this application features a gamified **Aim + Reaction** mechanic, requiring users to quickly locate and click a randomly spawning target while tracking their performance across multiple rounds.
