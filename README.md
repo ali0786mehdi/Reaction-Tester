@@ -1,29 +1,65 @@
-# ⚡ Aesthetic Reaction Tester
+⚡ Aesthetic Reaction Tester
+A sleek, modern web application designed to test and improve your reflexes and aiming speed.
 
-[![Play Live](https://img.shields.io/badge/Play_Live-Game-3b82f6?style=for-the-badge&logo=github)](https://ali0786mehdi.github.io/Reaction-Tester/)
+Originally built as a client-side experience, this application is evolving into a full-stack platform. It features a gamified Aim + Reaction mechanic, requiring users to quickly locate and click a randomly spawning target, while now offering secure user authentication to track performance, save high scores, and monitor rolling averages across sessions.
 
-A sleek, modern web application built with HTML, CSS, and Vanilla JavaScript to test and improve your reflexes and aiming speed. 
+✨ Features
+🔐 Secure User Authentication: Create an account and log in to securely save your reaction times. Every session is linked directly to your profile.
 
-Unlike basic color-swap reaction tests, this application features a gamified **Aim + Reaction** mechanic, requiring users to quickly locate and click a randomly spawning target while tracking their performance across multiple rounds.
+🎯 Aim & React Mechanics: Targets spawn in random locations within the play area, testing both cursor accuracy and raw reflex speed.
 
-## ✨ Features
+📊 Personal Performance Dashboard: Automatically tracks your current rounds, calculates your rolling average, and persistently saves your all-time best score to the database.
 
-* 🎯 **Aim & React Mechanics:** Targets spawn in random locations within the play area, testing both cursor accuracy and raw reflex speed.
-* 📊 **Live Performance Dashboard:** Automatically tracks your current round (out of 5), calculates your rolling average, and saves your best time.
-* ⏱️ **High-Precision Timing:** Utilizes JavaScript's `performance.now()` API for microsecond-level accuracy, ensuring professional-grade testing.
-* 🎨 **Modern Dark UI:** A beautifully crafted, distraction-free interface featuring a sleek dark mode color palette, smooth CSS transitions, and an elegant layout.
-* 📱 **Fully Responsive:** Optimized for both desktop (mouse) and mobile (touch) experiences.
+⏱️ High-Precision Timing: Utilizes high-resolution browser APIs for microsecond-level accuracy, ensuring professional-grade testing.
 
-## 🛠️ Tech Stack
+🎨 Modern Minimalist UI: A beautifully crafted, distraction-free interface featuring a sleek dark mode color palette, smooth transitions, and an elegant layout.
 
-* **HTML5:** Semantic structure and accessible layout.
-* **CSS3:** Custom variables, Flexbox layouts, absolute positioning, and modern styling.
-* **Vanilla JavaScript:** DOM manipulation, high-resolution state management, and asynchronous timeouts without any external libraries.
+📱 Fully Responsive: Optimized for both desktop (mouse) and mobile (touch) experiences.
 
-## 🚀 Getting Started
+🛠️ Tech Stack
+Frontend: Next.js, React, and TypeScript for a robust, scalable, and type-safe user interface.
 
-Since this project uses pure front-end technologies, no build tools or package managers are required.
+Styling: Modern CSS/Tailwind for maintaining a clean, minimal, and aesthetic design system.
 
-1. **Clone the repository:**
+Backend: Next.js API Routes / Server Actions to handle secure data transmission.
+
+Database & ORM: Prisma ORM connected to a relational database to seamlessly manage User and Score models.
+
+Authentication: Secure session management for login and sign-up flows.
+
+🚀 Getting Started
+To run the full-stack version of this project locally, you will need Node.js and a package manager installed.
+
+Clone the repository:
+
+git clone https://github.com/ali0786mehdi/Reaction-Tester.git
+cd Reaction-Tester
+
+
+2. **Install dependencies:**
    ```bash
-   git clone [https://github.com/ali0786mehdi/Reaction-Tester.git](https://github.com/ali0786mehdi/Reaction-Tester.git)
+npm install
+Configure Environment Variables:
+Create a .env file in the root directory and add your database connection string and authentication secrets:
+
+DATABASE_URL="your_database_connection_string"
+AUTH_SECRET="your_secure_auth_secret"
+
+
+4. **Initialize the Database:**
+   Push the Prisma schema to your database to create the required tables for users and scores.
+   ```bash
+npx prisma db push
+Start the development server:
+
+npm run dev
+
+   Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+
+## 📝 Roadmap
+
+- [x] Core Aim & Reaction Mechanics
+- [x] Client-side score calculation
+- [ ] User Authentication (Login / Sign Up)
+- [ ] Database integration for persistent score tracking
+- [ ] Global Leaderboard implementation
