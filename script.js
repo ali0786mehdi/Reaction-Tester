@@ -1,3 +1,31 @@
+// ==========================================
+// --- VIEW ROUTER (Switches between games) ---
+// ==========================================
+function switchGame(gameName) {
+    // 1. Hide all game views
+    document.querySelectorAll('.game-view').forEach(view => {
+        view.classList.remove('active');
+        view.classList.add('hidden');
+    });
+
+    // 2. Remove active state from all sidebar buttons
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    // 3. Show the selected game view
+    const selectedView = document.getElementById(`view-${gameName}`);
+    selectedView.classList.remove('hidden');
+    selectedView.classList.add('active');
+
+    // 4. Highlight the selected sidebar button
+    document.getElementById(`btn-${gameName}`).classList.add('active');
+}
+
+// ==========================================
+// --- REACTION TESTER LOGIC (Your Code) ---
+// ==========================================
+
 // --- DOM ELEMENTS ---
 const elements = {
     playArea: document.getElementById('play-area'),
