@@ -1,172 +1,130 @@
 // ==========================================
-// --- VIEW ROUTER (Switches between games) ---
-// ==========================================
-function switchGame(gameName) {
-    // 1. Hide all game views
-    document.querySelectorAll('.game-view').forEach(view => {
-        view.classList.remove('active');
-        view.classList.add('hidden');
-    });
-
-    // 2. Remove active state from all sidebar buttons
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-
-    // 3. Show the selected game view
-    const selectedView = document.getElementById(`view-${gameName}`);
-    selectedView.classList.remove('hidden');
-    selectedView.classList.add('active');
-
-    // 4. Highlight the selected sidebar button
-    document.getElementById(`btn-${gameName}`).classList.add('active');
-}
-
-// ==========================================
-// --- REACTION TESTER LOGIC (Your Code) ---
+// --- MENTAL MATH GAME LOGIC ---
 // ==========================================
 
-// --- DOM ELEMENTS ---
-const elements = {
-    playArea: document.getElementById('play-area'),
-    target: document.getElementById('target'),
-    overlay: document.getElementById('message-overlay'),
-    mainMessage: document.getElementById('main-message'),
-    subMessage: document.getElementById('sub-message'),
-    roundDisplay: document.getElementById('round-display'),
-    avgTimeDisplay: document.getElementById('average-time'),
-    bestTimeDisplay: document.getElementById('best-time')
+let mathScore = 0;
+let mathTimeLeft = 30;
+let currentMathAnswer = 0;
+let mathTimerInterval;
+
+// Cache DOM elements for better performance
+const mathElements = {
+    scoreDisplay: document.getElementById('math-score'),
+    timerDisplay: document.getElementById('math-timer'),
+    questionDisplay: document.getElementById('math-question'),
+    inputField: document.getElementById('math-input'),
+    startBtn: document.getElementById('start-math-btn')
 };
 
-// --- GAME STATE ARCHITECTURE ---
-const state = {
-    status: 'start', // 'start', 'waiting', 'ready', 'finished'
-    currentRound: 0,
-    maxRounds: 5,
-    reactionTimes: [],
-    startTime: 0,
-    timeoutId: null
-};
+function startMathGame() {
+    // 1. Reset Game State
+    mathScore = 0;
+    mathTimeLeft = 30;
+    mathElements.scoreDisplay.innerText = mathScore;
+    mathElements.timerDisplay.innerText = `${mathTimeLeft}s`;
 
-// --- EVENT LISTENERS ---
-elements.overlay.addEventListener('click', handleOverlayClick);
-elements.playArea.addEventListener('mousedown', handleEarlyClick);
-elements.target.addEventListener('mousedown', handleTargetClick);
-
-// Prevents default mobile double-tap zooming
-document.addEventListener('touchstart', (e) => {
-    if (e.target === elements.target || e.target === elements.overlay) {
-        e.preventDefault(); 
-    }
-}, { passive: false });
-
-// --- CORE LOGIC ---
-
-function handleOverlayClick(e) {
-    e.stopPropagation(); // Prevents click from bubbling to playArea
-    if (state.status === 'start' || state.status === 'finished') {
-        resetGameStatsIfNeeded();
-        startRound();
-    }
-}
-
-function startRound() {
-    state.status = 'waiting';
-    elements.overlay.classList.add('hidden');
-    elements.target.classList.add('hidden');
-
-    // Update Round UI
-    elements.roundDisplay.innerText = `${state.currentRound + 1}/${state.maxRounds}`;
-
-    // Random delay between 1s and 3.5s
-    const delay = Math.floor(Math.random() * 2500) + 1000;
-
-    state.timeoutId = setTimeout(() => {
-        spawnTarget();
-    }, delay);
-}
-
-function spawnTarget() {
-    state.status = 'ready';
+    // 2. Enable Input & Disable Start Button (The Fix!)
+    mathElements.inputField.disabled = false;
+    mathElements.inputField.value = '';
+    mathElements.inputField.focus(); // Auto-selects the input box so you can type immediately
     
-    // Calculate max X and Y so the target stays inside the box
-    const maxX = elements.playArea.clientWidth - elements.target.clientWidth;
-    const maxY = elements.playArea.clientHeight - elements.target.clientHeight;
+    mathElements.startBtn.disabled = true;
+    mathElements.startBtn.innerText = "Playing...";
+    mathElements.startBtn.style.opacity = '0.5';
+    mathElements.startBtn.style.cursor = 'not-allowed';
+
+    // 3. Clear existing intervals (prevents timer speeding up if clicked twice)
+    clearInterval(mathTimerInterval);
+
+    // 4. Start Countdown
+    mathTimerInterval = setInterval(() => {
+        mathTimeLeft--;
+        mathElements.timerDisplay.innerText = `${mathTimeLeft}s`;
+
+        if (mathTimeLeft <= 0) {
+            endMathGame();
+        }
+    }, 1000);
+
+    // 5. Show first question
+    generateMathQuestion();
+}
+
+function generateMathQuestion() {
+    const operators = ['+', '-', '*', '/'];
+    const operator = operators[Math.floor(Math.random() * operators.length)];
+
+    let num1, num2;
+
+    // Helper function: Generates a random number between 2 and 20
+    const getRandomInRange = () => Math.floor(Math.random() * 19) + 2; 
+
+    switch (operator) {
+        case '+':
+            num1 = getRandomInRange();
+            num2 = getRandomInRange();
+            currentMathAnswer = num1 + num2;
+            break;
+        case '-':
+            num1 = getRandomInRange();
+            num2 = getRandomInRange();
+            // Swap if num1 is smaller to avoid negative answers
+            if (num1 < num2) {
+                let temp = num1;
+                num1 = num2;
+                num2 = temp;
+            }
+            currentMathAnswer = num1 - num2;
+            break;
+        case '*':
+            num1 = getRandomInRange();
+            num2 = getRandomInRange();
+            currentMathAnswer = num1 * num2;
+            break;
+        case '/':
+            // To ensure clean division (no decimals):
+            // We generate the divisor and the answer first (both 2-20), 
+            // then multiply them to get the dividend.
+            num2 = getRandomInRange(); 
+            currentMathAnswer = getRandomInRange(); 
+            num1 = num2 * currentMathAnswer; 
+            break;
+    }
+
+    mathElements.questionDisplay.innerText = `${num1} ${operator} ${num2} = ?`;
+    mathElements.inputField.value = '';
+}
+
+// Ensure the HTML triggers this function on keyup
+function checkAnswer(event) {
+    if (event.key === 'Enter') {
+        const userAnswer = parseInt(event.target.value);
+
+        if (userAnswer === currentMathAnswer) {
+            // Correct Answer
+            mathScore++;
+            mathElements.scoreDisplay.innerText = mathScore;
+            generateMathQuestion();
+        } else {
+            // Wrong Answer: Just clear the box so they can re-type immediately
+            event.target.value = '';
+        }
+    }
+}
+
+function endMathGame() {
+    clearInterval(mathTimerInterval);
     
-    const randomX = Math.floor(Math.random() * maxX);
-    const randomY = Math.floor(Math.random() * maxY);
-
-    // Apply positions
-    elements.target.style.left = `${randomX}px`;
-    elements.target.style.top = `${randomY}px`;
+    mathElements.questionDisplay.innerText = `Time's Up! Score: ${mathScore}`;
     
-    // Show target and start timer using high-resolution time
-    elements.target.classList.remove('hidden');
-    state.startTime = performance.now();
-}
+    // Disable input
+    mathElements.inputField.disabled = true;
+    mathElements.inputField.value = '';
+    mathElements.inputField.blur();
 
-function handleTargetClick(e) {
-    e.stopPropagation(); // Prevent triggering early click on playArea
-    if (state.status !== 'ready') return;
-
-    const endTime = performance.now();
-    const reactionTime = (endTime - state.startTime) / 1000; // Convert to seconds
-
-    elements.target.classList.add('hidden');
-    state.reactionTimes.push(reactionTime);
-    state.currentRound++;
-
-    updateDashboardStats();
-
-    if (state.currentRound >= state.maxRounds) {
-        endGame();
-    } else {
-        showOverlay(`Time: ${reactionTime.toFixed(3)}s`, "Click to start next round");
-        state.status = 'start';
-    }
-}
-
-function handleEarlyClick() {
-    // If they click the background while waiting for the target to spawn
-    if (state.status === 'waiting') {
-        clearTimeout(state.timeoutId);
-        showOverlay("Too Soon!", "You clicked before the target appeared.");
-        elements.target.classList.add('hidden');
-        state.status = 'start';
-    }
-}
-
-// --- UTILITY FUNCTIONS ---
-
-function showOverlay(mainText, subText) {
-    elements.mainMessage.innerText = mainText;
-    elements.subMessage.innerText = subText;
-    elements.overlay.classList.remove('hidden');
-}
-
-function updateDashboardStats() {
-    // Calculate Average
-    const sum = state.reactionTimes.reduce((a, b) => a + b, 0);
-    const avg = sum / state.reactionTimes.length;
-    elements.avgTimeDisplay.innerText = `${avg.toFixed(3)}s`;
-
-    // Calculate Best
-    const best = Math.min(...state.reactionTimes);
-    elements.bestTimeDisplay.innerText = `${best.toFixed(3)}s`;
-}
-
-function endGame() {
-    state.status = 'finished';
-    const finalAvg = elements.avgTimeDisplay.innerText;
-    showOverlay("Test Complete", `Your average time was ${finalAvg}. Click to play again.`);
-}
-
-function resetGameStatsIfNeeded() {
-    if (state.status === 'finished') {
-        state.currentRound = 0;
-        state.reactionTimes = [];
-        elements.avgTimeDisplay.innerText = "0.000s";
-        elements.bestTimeDisplay.innerText = "0.000s";
-        elements.roundDisplay.innerText = `1/${state.maxRounds}`;
-    }
+    // Reset Start Button
+    mathElements.startBtn.disabled = false;
+    mathElements.startBtn.innerText = "Play Again";
+    mathElements.startBtn.style.opacity = '1';
+    mathElements.startBtn.style.cursor = 'pointer';
 }
