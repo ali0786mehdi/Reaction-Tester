@@ -1,13 +1,12 @@
-/* --- AESTHETIC THEME VARIABLES --- */
 :root {
-    --bg-main: #0f172a;       /* Deep Slate Blue */
-    --bg-card: #1e293b;       /* Lighter Slate for cards */
-    --bg-sidebar: #0b1120;    /* Darker Slate for sidebar */
+    --bg-main: #0f172a;       
+    --bg-card: #1e293b;       
+    --bg-sidebar: #0b1120;    
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
-    --accent-color: #3b82f6;  /* Vibrant Blue */
-    --target-color: #10b981;  /* Emerald Green */
-    --error-color: #ef4444;   /* Soft Red */
+    --accent-color: #3b82f6;  
+    --target-color: #10b981;  
+    --error-color: #ef4444;   
     --border-radius: 12px;
 }
 
@@ -26,7 +25,7 @@ body {
     overflow: hidden;
 }
 
-/* --- MASTER LAYOUT & SIDEBAR --- */
+/* LAYOUT & SIDEBAR */
 .layout-wrapper {
     display: flex;
     height: 100vh;
@@ -70,7 +69,7 @@ body {
 }
 
 .nav-btn.active {
-    background-color: rgba(59, 130, 246, 0.1); /* Subtle blue tint */
+    background-color: rgba(59, 130, 246, 0.1); 
     color: var(--accent-color);
     font-weight: 600;
     border-left: 3px solid var(--accent-color);
@@ -93,11 +92,11 @@ body {
     flex-grow: 1;
     overflow-y: auto;
     display: flex;
-    justify-content: center; /* Keeps the game centered in the remaining space */
+    justify-content: center; 
     align-items: center;
 }
 
-/* --- VIEW ROUTING --- */
+/* VIEW ROUTING */
 .game-view {
     display: none; 
     width: 100%;
@@ -114,7 +113,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- APP CONTAINER (Shared by both games) --- */
+/* APP CONTAINER */
 .app-container {
     width: 100%;
     max-width: 800px;
@@ -124,7 +123,6 @@ body {
     padding: 20px;
 }
 
-/* --- HEADER --- */
 header {
     text-align: center;
 }
@@ -141,7 +139,7 @@ h1 {
     margin-top: 5px;
 }
 
-/* --- DASHBOARD --- */
+/* DASHBOARD */
 .dashboard {
     display: flex;
     justify-content: space-between;
@@ -174,7 +172,7 @@ h1 {
     color: var(--accent-color);
 }
 
-/* --- PLAY AREA (REACTION TESTER) --- */
+/* PLAY AREA (REACTION TESTER) */
 .play-area {
     background-color: var(--bg-card);
     height: 400px;
@@ -228,17 +226,17 @@ h1 {
     font-size: 1.1rem;
 }
 
-/* --- PLAY AREA (MENTAL MATH) --- */
+/* PLAY AREA (MENTAL MATH) */
 .math-play-area {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 400px; /* Matches reaction tester height */
+    height: 400px; 
     background-color: var(--bg-card);
     border-radius: var(--border-radius);
     box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
-    gap: 30px;
+    gap: 20px;
 }
 
 #math-question {
@@ -266,7 +264,7 @@ h1 {
 }
 
 .start-btn {
-    padding: 15px 30px;
+    padding: 12px 30px;
     font-size: 1.1rem;
     background-color: var(--accent-color);
     color: #fff;
@@ -285,11 +283,55 @@ h1 {
     transform: scale(0.95);
 }
 
-/* --- MOBILE RESPONSIVENESS --- */
+/* TIME SELECTOR STYLES */
+.time-selector {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.time-btn {
+    background-color: var(--bg-main);
+    color: var(--text-secondary);
+    border: 1px solid var(--bg-card);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.time-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+}
+
+.time-btn.active {
+    background-color: rgba(59, 130, 246, 0.2);
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+#custom-time-input {
+    width: 70px;
+    padding: 8px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--accent-color);
+    color: var(--text-primary);
+    border-radius: 6px;
+    text-align: center;
+    outline: none;
+    font-family: inherit;
+}
+
+#custom-time-input.hidden {
+    display: none;
+}
+
+/* MOBILE RESPONSIVENESS */
 @media (max-width: 768px) {
-    .layout-wrapper {
-        flex-direction: column;
-    }
+    .layout-wrapper { flex-direction: column; }
     .sidebar {
         width: 100%;
         height: auto;
@@ -299,24 +341,10 @@ h1 {
         border-right: none;
         border-bottom: 1px solid var(--bg-card);
     }
-    .sidebar .logo {
-        display: none; /* Hide logo on mobile to save space */
-    }
-    .nav-btn {
-        width: auto;
-        white-space: nowrap;
-    }
-    .coming-soon {
-        display: none;
-    }
-    .dashboard {
-        flex-direction: column;
-    }
-    .play-area, .math-play-area {
-        height: 300px;
-    }
-    .target {
-        width: 50px;
-        height: 50px;
-    }
+    .sidebar .logo { display: none; }
+    .nav-btn { width: auto; white-space: nowrap; }
+    .coming-soon { display: none; }
+    .dashboard { flex-direction: column; }
+    .play-area, .math-play-area { height: 300px; }
+    .target { width: 50px; height: 50px; }
 }
