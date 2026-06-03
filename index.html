@@ -32,7 +32,6 @@
                         <h1>Reaction Tester</h1>
                         <p class="subtitle">Test your reflexes in a minimal space. Improve Your Focus</p>
                     </header>
-
                     <main>
                         <div class="dashboard">
                             <div class="stat-card">
@@ -48,7 +47,6 @@
                                 <span class="value" id="best-time">0.000s</span>
                             </div>
                         </div>
-
                         <div id="play-area" class="play-area">
                             <div id="target" class="target hidden"></div>
                             <div id="message-overlay" class="overlay">
@@ -66,7 +64,6 @@
                         <h1>Speed Math</h1>
                         <p class="subtitle">Calculate accurately before the time runs out.</p>
                     </header>
-
                     <main>
                         <div class="dashboard">
                             <div class="stat-card">
@@ -78,11 +75,20 @@
                                 <span class="value" id="math-timer">30s</span>
                             </div>
                         </div>
-
                         <div class="math-play-area">
                             <h2 id="math-question">Press Start to Begin</h2>
-                            <input type="number" id="math-input" disabled onkeyup="checkAnswer(event)" placeholder="Type answer & press Enter">
-                            <button id="start-math-btn" class="start-btn" onclick="startMathGame()">Start 30s Rush</button>
+                            
+                            <input type="number" id="math-input" disabled placeholder="Type answer...">
+                            
+                            <div class="time-selector">
+                                <button class="time-btn" data-time="15">15s</button>
+                                <button class="time-btn active" data-time="30">30s</button>
+                                <button class="time-btn" data-time="60">60s</button>
+                                <button class="time-btn" data-time="custom">Custom</button>
+                                <input type="number" id="custom-time-input" class="hidden" placeholder="Secs" min="1" max="300">
+                            </div>
+
+                            <button id="start-math-btn" class="start-btn" onclick="startMathGame()">Start Game</button>
                         </div>
                     </main>
                 </div>
@@ -92,5 +98,6 @@
     </div>
     
     <script src="script.js"></script>
-    <script src="mathGame.js"></script> </body>
+    <script src="mathGame.js"></script>
+</body>
 </html>
