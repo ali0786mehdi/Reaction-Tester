@@ -33,6 +33,21 @@ Originally built as a client-side experience, this application is evolving into 
 
 ---
 
+🚀 Upcoming Features
+The following enhancements are planned for future releases:
+
+[x] Core Aim & Reaction Mechanics
+
+[x] Client-side Score Calculation
+
+[ ] User Authentication: Login and Sign Up functionality.
+
+[ ] Database Integration: Persistent score tracking across sessions.
+
+[ ] Global Leaderboard: Compete with other players worldwide.
+
+---
+
 ## 🚀 Getting Started
 
 To run the full-stack version of this project locally, you will need **Node.js** and a package manager installed.
