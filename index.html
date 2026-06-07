@@ -13,14 +13,15 @@
         <aside class="sidebar">
             <h2 class="logo">BrainHub</h2>
             <nav>
-                <button class="nav-btn active" id="btn-reaction" onclick="switchGame('reaction')">Reaction Tester</button>
-                <button class="nav-btn" id="btn-math" onclick="switchGame('math')">Mental Math ⚡</button>
-                
-                <div class="coming-soon">
-                    <p>Coming Soon</p>
-                    <button class="nav-btn disabled">Memory Matrix 🔒</button>
-                    <button class="nav-btn disabled">Aim Trainer 🔒</button>
-                </div>
+               <button class="nav-btn" id="btn-reaction" onclick="switchGame('reaction')">Reaction Tester</button>
+<button class="nav-btn" id="btn-math" onclick="switchGame('math')">Mental Math ⚡</button>
+<button class="nav-btn" id="btn-memory" onclick="switchGame('memory')">Memory Matrix 🧠</button>
+
+<div class="coming-soon">
+    <p>Coming Soon</p>
+    <button class="nav-btn disabled">Aim Trainer 🔒</button>
+</div>
+               
             </nav>
         </aside>
 
@@ -93,11 +94,43 @@
                     </main>
                 </div>
             </div>
+            <div id="view-memory" class="game-view hidden">
+    <div class="app-container">
+        <header>
+            <h1>Memory Matrix</h1>
+            <p class="subtitle">Memorize the highlighted tiles. They disappear after 2 seconds.</p>
+        </header>
+        <main>
+            <div class="dashboard">
+                <div class="stat-card">
+                    <span class="label">Level</span>
+                    <span class="value" id="memory-level">1</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Trials</span>
+                    <span class="value" id="memory-trials" style="color: var(--error-color);">3</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Score</span>
+                    <span class="value" id="memory-score">0</span>
+                </div>
+            </div>
+            
+            <div class="memory-play-area">
+                <h2 id="memory-message" style="margin-bottom: 10px; text-align: center;">Press Start to Begin</h2>
+                
+                <div id="memory-grid" class="memory-grid hidden"></div>
+                
+                <button id="start-memory-btn" class="start-btn" onclick="startMemoryGame()">Start Game</button>
+            </div>
+        </main>
+    </div>
+</div>
 
         </div>
     </div>
-    
     <script src="script.js"></script>
     <script src="mathGame.js"></script>
+    <script src="memoryGame.js"></script>
 </body>
 </html>
