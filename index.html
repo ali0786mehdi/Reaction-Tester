@@ -16,11 +16,7 @@
                <button class="nav-btn" id="btn-reaction" onclick="switchGame('reaction')">Reaction Tester</button>
 <button class="nav-btn" id="btn-math" onclick="switchGame('math')">Mental Math ⚡</button>
 <button class="nav-btn" id="btn-memory" onclick="switchGame('memory')">Memory Matrix 🧠</button>
-
-<div class="coming-soon">
-    <p>Coming Soon</p>
-    <button class="nav-btn disabled">Aim Trainer 🔒</button>
-</div>
+<button class="nav-btn" id="btn-aim" onclick="switchGame('aim')">Aim Trainer 🎯</button>
                
             </nav>
         </aside>
@@ -126,11 +122,52 @@
         </main>
     </div>
 </div>
+            <div id="view-aim" class="game-view hidden">
+    <div class="app-container">
+        <header>
+            <h1>Aim Trainer</h1>
+            <p class="subtitle">Click the targets as fast as you can. Speed and accuracy both count.</p>
+        </header>
+        <main>
+            <div class="dashboard">
+                <div class="stat-card">
+                    <span class="label">Score</span>
+                    <span class="value" id="aim-score">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Time Left</span>
+                    <span class="value" id="aim-timer">30s</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Accuracy</span>
+                    <span class="value" id="aim-accuracy">100%</span>
+                </div>
+            </div>
+
+            <div id="aim-play-area" class="play-area">
+                <div id="aim-target" class="target hidden"></div>
+                <div id="aim-overlay" class="overlay">
+                    <h2 id="aim-main-message">Click to Start</h2>
+                    <p id="aim-sub-message">Hit as many targets as you can before time runs out.</p>
+                </div>
+            </div>
+
+            <div class="time-selector">
+                <button class="aim-time-btn" data-time="15">15s</button>
+                <button class="aim-time-btn active" data-time="30">30s</button>
+                <button class="aim-time-btn" data-time="60">60s</button>
+                <button class="aim-time-btn" data-time="custom">Custom</button>
+                <input type="number" id="aim-custom-time-input" class="hidden" placeholder="Secs" min="1" max="300">
+            </div>
+        </main>
+    </div>
+</div>
 
         </div>
     </div>
     <script src="script.js"></script>
     <script src="mathGame.js"></script>
     <script src="memoryGame.js"></script>
+    <script src="aimGame.js"></script>
 </body>
 </html>
